@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillbox Find a couple by Artur Saiakhov</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Find a couple</h1>
+        <div class="couples">
+            <div class="row 1row">
+                <div class="block" id="1"></div>
+                <div class="block" id="2"></div>
+                <div class="block" id="3"></div>
+                <div class="block" id="4"></div>
+            </div>
+            <div class="row 2row">
+                <div class="block" id="5"></div>
+                <div class="block" id="6"></div>
+                <div class="block" id="7"></div>
+                <div class="block" id="8"></div>
+            </div>
+            <div class="row 3row">
+                <div class="block" id="9"></div>
+                <div class="block" id="10"></div>
+                <div class="block" id="11"></div>
+                <div class="block" id="12"></div>
+            </div>
+            <div class="row 4row">
+                <div class="block" id="13"></div>
+                <div class="block" id="14"></div>
+                <div class="block" id="15"></div>
+                <div class="block" id="16"></div>
+            </div>
+        </div>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-success" id="start">Start</button>
+                <button class="btn btn-danger" id="stop">Stop</button>
+            </div>
+
+    </div>
+    <br>
+
+<script>
+(function () {
+    const couples = '1122334455667788'.split('');
+    console.log(couples);
+    function split(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+    splitCouples = split(couples);
+    console.log(splitCouples);
+    let idCouples = [];
+    let timerId;
+    let start = document.getElementById('start');
+    let stop = document.getElementById('stop');
+    console.log(stop);
+
+    // функция на затирание блоков
+    function clearCouplesTimeout(time) {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            for (let index = 1; index <= 16; index++) {
+            let element = document.getElementById(index);
+            element.textContent = '';
+            }
+        }, time);
+    }
+
+    //при клике на Start отображает 16 цифр, каждую в соответствующем блоке. Потом запускает функцию на затирание
+    function displayRandomCouples() {
+        for (let index = 1; index <= 16; index++) {
+            let element = document.getElementById(index);
+            element.append(splitCouples[index-1]);
+            console.log(element);
+            idCouples.push(element);
+        }
+        clearCouplesTimeout(3000);
+    }
+
+    start.addEventListener('click', displayRandomCouples);
+    
+    stop.addEventListener('click', () => clearCouplesTimeout(0));
+
+    //выводит число при клике мышкой на блок
+    document.querySelector('.couples').addEventListener('click', function(e) {
+    // let idInput = e.path.getAttribute('id');
+        console.log(e);
+        console.log(e.target.id);
+        if (!!e) {
+            let element = document.getElementById(e.target.id);
+            element.append(splitCouples[e.target.id - 1]);
+        }
+    });
+})();
+</script>
+</body>
+</html>
