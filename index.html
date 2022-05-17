@@ -65,6 +65,7 @@
     let winCount;
     let tryCount = 0;
     let tempTryId = [];
+    let guessedId = [];
     let tempTryElement = [];
 
     // функция на затирание блоков
@@ -115,6 +116,16 @@
             deleteWrongCouple();
         }
         clearTimeout(timerId2);
+        //проверка нажатия на угаданные id
+        for (const key of guessedId) {
+            // console.log('key and e.target.id =');
+            // console.log(key);
+            // console.log(e.target.id);
+            if (e.target.id === key) {
+                return;
+            }
+        }
+
         //МОЖНО СДЕЛАТЬ ПРОВЕРКУ НА ПУСТОЙ МАССИВ вместо трай
         if (!!e.target.id && tryCount < 2 && tempTryId[tryCount-1] != e.target.id && canStart === 0) {
             tryCount++;
@@ -126,10 +137,16 @@
         } 
         if (tryCount === 2 && splitCouples[tempTryId[0]-1] === splitCouples[tempTryId[1]-1]) {
             tryCount = 0;
+            guessedId.push(tempTryId[0]);
+            guessedId.push(tempTryId[1]);
             tempTryId = [];
+            guessedId = [];
             winCount++;
+            //проверка на выигрышь
             if (winCount === 8) {
+                //запрещаем отрисовывать новые цифры при клике
                 canStart = 1;
+                //поздравление с таймером
                 timerId = setTimeout(() => {
                     alert('Поздравляю, вы выиграли!')
                 }, 500);
@@ -153,12 +170,6 @@
             }
             tempTryId = [];
         }
-        
-        
-        // else {
-        //     tryCount = 0;
-        //     tempTryId = [];
-        // }
     });
 
 })();
