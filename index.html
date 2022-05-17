@@ -128,12 +128,12 @@
             tryCount = 0;
             tempTryId = [];
             winCount++;
-            timerId = setTimeout(() => {
-                if (winCount === 8) {
-                alert('Поздравляю, вы выиграли!')
+            if (winCount === 8) {
+                canStart = 1;
+                timerId = setTimeout(() => {
+                    alert('Поздравляю, вы выиграли!')
+                }, 500);
             }
-            }, 1000);
-            
         }
         else if (tryCount === 2 && splitCouples[tempTryId[0]-1] != splitCouples[tempTryId[1]-1]) {
             timerId2 = setTimeout(() => {
