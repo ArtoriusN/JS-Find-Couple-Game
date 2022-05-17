@@ -47,7 +47,7 @@
 <script>
 (function () {
     const couples = '1122334455667788'.split('');
-    console.log(couples);
+
     function split(array) {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
@@ -56,7 +56,6 @@
         return array;
     }
     splitCouples = split(couples);
-    console.log(splitCouples);
     let idCouples = [];
     let timerId;
     let timerId2;
@@ -83,6 +82,7 @@
 
     //при клике на Start отображает 16 цифр, каждую в соответствующем блоке. Потом запускает функцию на затирание
     function displayRandomCouples(time) {
+        split(couples);
         winCount = 0;
         canStart = 1;
         for (let index = 1; index <= 16; index++) {
