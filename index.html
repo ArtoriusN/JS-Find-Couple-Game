@@ -111,6 +111,9 @@
 
     //выводит число при клике мышкой на блок
     document.querySelector('.couples').addEventListener('click', function(e) {
+        if (tryCount === 2 && splitCouples[tempTryId[0]-1] != splitCouples[tempTryId[1]-1]){
+            deleteWrongCouple();
+        }
         clearTimeout(timerId2);
         //МОЖНО СДЕЛАТЬ ПРОВЕРКУ НА ПУСТОЙ МАССИВ вместо трай
         if (!!e.target.id && tryCount < 2 && tempTryId[tryCount-1] != e.target.id && canStart === 0) {
@@ -134,7 +137,7 @@
         }
         else if (tryCount === 2 && splitCouples[tempTryId[0]-1] != splitCouples[tempTryId[1]-1]) {
             timerId2 = setTimeout(() => {
-                deleteWrongCouple()
+                deleteWrongCouple();
             }, 2000);
         }
 
